@@ -1,0 +1,70 @@
+# ╔══════════════════════════════════════════════════════════════╗
+# ║         PaisaBachat Backend — Configuration Template        ║
+# ║   Copy this file to application.yaml and fill your values   ║
+# ╚══════════════════════════════════════════════════════════════╝
+
+spring:
+  application:
+    name: paisabachat-backend
+
+  # ── Database (PostgreSQL) ──────────────────────────────────────
+  datasource:
+    url: jdbc:postgresql://localhost:5432/YOUR_DB_NAME
+    username: YOUR_DB_USER
+    password: YOUR_DB_PASSWORD
+    driver-class-name: org.postgresql.Driver
+
+  # ── JPA / Hibernate ───────────────────────────────────────────
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    open-in-view: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+
+  # ── Redis ─────────────────────────────────────────────────────
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      password:   # leave empty if no password
+
+# ── Server ────────────────────────────────────────────────────────
+server:
+  port: 8080
+
+# ── App Custom Properties ─────────────────────────────────────────
+app:
+  jwt:
+    secret: YOUR_256_BIT_SECRET_KEY_HERE_MINIMUM_32_CHARACTERS
+    access-token-expiry: 900000       # 15 minutes in ms
+    refresh-token-expiry: 604800000   # 7 days in ms
+
+  cors:
+    allowed-origins:
+      - http://localhost:3000
+      - http://localhost:5173
+
+  rate-limit:
+    general:
+      max-requests: 60
+      window-seconds: 60
+    auth:
+      max-requests: 10
+      window-seconds: 60
+
+# ── Firebase ──────────────────────────────────────────────────────
+firebase:
+  credentials-path: src/main/resources/firebase-service-account.json
+  # Get this file from Firebase Console:
+  # Project Settings → Service Accounts → Generate New Private Key
+
+# ── Logging ───────────────────────────────────────────────────────
+logging:
+  level:
+    com.hamza.paisabachat: INFO
+    org.springframework.security: WARN
+    org.hibernate.SQL: WARN
